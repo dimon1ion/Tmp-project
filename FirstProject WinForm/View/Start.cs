@@ -21,12 +21,14 @@ namespace FirstProject_WinForm
         public Start()
         {
             InitializeComponent();
-            presenterUser = new PresenterUser(new RepositoryUser());
+            presenterUser = new PresenterUser(new RepositoryUser(Application.StartupPath));
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            User user = presenterUser.CheckPass(passTextBox.Text);
+            errorPasswordLabel.Text = String.Empty;
+            errorLoginLabel.Text = String.Empty;
+            User user = presenterUser.CheckUser(loginTextBox.Text, passTextBox.Text);
             if (user != null)
             {
                 login = new Login(user);
@@ -34,13 +36,25 @@ namespace FirstProject_WinForm
                 login.ShowDialog();
                 this.Visible = true;
             }
+            else if (presenterUser.rightLogin)
+            {
+                errorPasswordLabel.Text = "*Password is incorrect";
+            }
+            else
+            {
+                errorLoginLabel.Text = "*Login not found";
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             sign_Up = new Sign_up(this);
             this.Visible = false;
-            sign_Up.ShowDialog();
+            if (sign_Up.ShowDialog() != DialogResult.OK)
+            {
+                this.Close();
+                return;
+            }
             this.Visible = true;
         }
     }

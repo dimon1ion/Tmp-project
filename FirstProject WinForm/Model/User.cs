@@ -9,8 +9,13 @@ namespace FirstProject_WinForm.Model
 {
     public class User
     {
-        public List<Label> labels { get; set; }
-        public List<Button> buttons { get; set; }
+        internal List<Label> labels { get; set; }
+        internal List<Button> buttons { get; set; }
+        public User()
+        {
+            labels = new List<Label>();
+            buttons = new List<Button>();
+        }
         public User(string login, string password, string name, string surname)
         {
             Login = login;

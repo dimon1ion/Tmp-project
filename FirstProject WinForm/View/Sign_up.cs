@@ -1,0 +1,70 @@
+﻿using FirstProject_WinForm.Model;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace FirstProject_WinForm
+{
+    public partial class Sign_up : Form
+    {
+        Start start;
+        public Sign_up(Start _start)
+        {
+            InitializeComponent();
+            start = _start;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            errorLoginLabel.Text = String.Empty;
+            errorNameLabel.Text = String.Empty;
+            errorSurnameLabel.Text = String.Empty;
+            errorPassLabel.Text = String.Empty;
+            bool loginError = false, loginUsed = false, nameError = false, surnameError = false, passError = false;
+            if (loginTextBox.Text != String.Empty)
+            {
+                start.presenterUser.CheckUser(loginTextBox.Text);
+                if (start.presenterUser.rightLogin)
+                {
+                    errorLoginLabel.Text = "*This login is used";
+                    loginUsed = true;
+                }
+            }
+            else { errorLoginLabel.Text = "*"; loginError = true; }
+            if (nameTextBox.Text == String.Empty)
+            {
+                errorNameLabel.Text = "*";
+                nameError = true;
+            }
+            if (surnameTextBox.Text == String.Empty)
+            {
+                errorSurnameLabel.Text = "*";
+                surnameError = true;
+            }
+            if (passTextBox.Text.Length < 8)
+            {
+                errorPassLabel.Text = "*Use 8 characters or more for your password";
+                passError = true;
+            }
+
+            if (!loginError && !loginUsed && !nameError && !surnameError && !passError)
+            {
+                start.presenterUser.NewUser(new User(loginTextBox.Text, passTextBox.Text, nameTextBox.Text, surnameTextBox.Text));
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+        }
+    }
+}
