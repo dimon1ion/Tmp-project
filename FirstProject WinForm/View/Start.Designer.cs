@@ -58,7 +58,6 @@ namespace FirstProject_WinForm
             this.loginTextBox.Name = "loginTextBox";
             this.loginTextBox.Size = new System.Drawing.Size(126, 16);
             this.loginTextBox.TabIndex = 1;
-            this.loginTextBox.Text = "dimonlion";
             // 
             // passTextBox
             // 
@@ -68,7 +67,6 @@ namespace FirstProject_WinForm
             this.passTextBox.Name = "passTextBox";
             this.passTextBox.Size = new System.Drawing.Size(126, 16);
             this.passTextBox.TabIndex = 2;
-            this.passTextBox.Text = "0000";
             this.passTextBox.UseSystemPasswordChar = true;
             // 
             // label2

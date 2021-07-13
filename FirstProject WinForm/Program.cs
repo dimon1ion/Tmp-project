@@ -16,7 +16,16 @@ namespace FirstProject_WinForm
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Start());
+
+            Start view = new Start();
+
+            Repository.RepositoryUser repositoryUser = new Repository.RepositoryUser(Application.StartupPath);
+            
+            Presenter.PresenterUser presenterUser = new Presenter.PresenterUser(view, repositoryUser);
+
+            //var test = new AccountPosts(view);
+
+            Application.Run(view);
         }
     }
 }

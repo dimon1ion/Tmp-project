@@ -1,4 +1,5 @@
 ﻿using FirstProject_WinForm.Model;
+using FirstProject_WinForm.Presenter;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,14 +12,22 @@ using System.Windows.Forms;
 
 namespace FirstProject_WinForm
 {
-    public partial class Sign_up : Form
+    public partial class Sign_up : Form, IUserView
     {
         Start start;
-        public Sign_up(Start _start)
+        public Sign_up(Start start)
         {
             InitializeComponent();
-            start = _start;
+            UserPresenter = start.UserPresenter;
+            this.start = start;
         }
+
+        public string Login { get => loginTextBox.Text; set => loginTextBox.Text = value; }
+        public string Password { get => passTextBox.Text; set => passTextBox.Text = value; }
+        public string NameUser { get => nameTextBox.Text; set => nameTextBox.Text = value; }
+        public string Surname { get => surnameTextBox.Text; set => surnameTextBox.Text = value; }
+        public List<string> Posts { get; set; }
+        public PresenterUser UserPresenter { get; set; }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -35,8 +44,7 @@ namespace FirstProject_WinForm
             bool loginError = false, loginUsed = false, nameError = false, surnameError = false, passError = false;
             if (loginTextBox.Text != String.Empty)
             {
-                start.presenterUser.CheckUser(loginTextBox.Text);
-                if (start.presenterUser.rightLogin)
+                if (start.UserPresenter.CheckUser(loginTextBox.Text, null))
                 {
                     errorLoginLabel.Text = "*This login is used";
                     loginUsed = true;
@@ -61,7 +69,7 @@ namespace FirstProject_WinForm
 
             if (!loginError && !loginUsed && !nameError && !surnameError && !passError)
             {
-                start.presenterUser.NewUser(new User(loginTextBox.Text, passTextBox.Text, nameTextBox.Text, surnameTextBox.Text));
+                start.UserPresenter.NewUser(new User(loginTextBox.Text, passTextBox.Text, nameTextBox.Text, surnameTextBox.Text));
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

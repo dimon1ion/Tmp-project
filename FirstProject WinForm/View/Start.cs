@@ -13,30 +13,35 @@ using System.Windows.Forms;
 
 namespace FirstProject_WinForm
 {
-    public partial class Start : Form
+    public partial class Start : Form,IUserView
     {
         Sign_up sign_Up;
-        Login login;
-        public PresenterUser presenterUser;
+        AccountPosts login;
+
+        public string Login { get => loginTextBox.Text; set => loginTextBox.Text = value; }
+        public string Password { get => passTextBox.Text; set => passTextBox.Text = value; }
+        public string NameUser { get; set; }
+        public string Surname { get; set; }
+        public List<string> Posts { get; set; }
+        public PresenterUser UserPresenter { get; set; }
+
         public Start()
         {
             InitializeComponent();
-            presenterUser = new PresenterUser(new RepositoryUser(Application.StartupPath));
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             errorPasswordLabel.Text = String.Empty;
             errorLoginLabel.Text = String.Empty;
-            User user = presenterUser.CheckUser(loginTextBox.Text, passTextBox.Text);
-            if (user != null)
+            if (UserPresenter.CheckUser(Login, Password))
             {
-                login = new Login(user);
+                login = new AccountPosts(this);
                 this.Visible = false;
                 login.ShowDialog();
                 this.Visible = true;
             }
-            else if (presenterUser.rightLogin)
+            else if (UserPresenter.rightLogin)
             {
                 errorPasswordLabel.Text = "*Password is incorrect";
             }

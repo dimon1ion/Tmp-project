@@ -12,7 +12,7 @@ namespace FirstProject_WinForm.Repository
 {
     public class RepositoryUser
     {
-        public List<User> users { get; set; }
+        List<User> users { get; set; }
         string xmlpath;
         XmlSerializer xmlSerializer;
         public RepositoryUser(string _path)
@@ -36,6 +36,10 @@ namespace FirstProject_WinForm.Repository
         }
         public void SaveUsers(List<User> users)
         {
+            if (users == null)
+            {
+                users = this.users;
+            }
             using (TextWriter ser = new StreamWriter(xmlpath))
             {
                 xmlSerializer.Serialize(ser, users);
@@ -45,6 +49,16 @@ namespace FirstProject_WinForm.Repository
         {
             users.Add(user);
             SaveUsers(users);
+        }
+        public User GetUserByID(int id)
+        {
+            if (users.Count > id && id >= 0)
+                return users[id];
+            return null;
+        }
+        public IEnumerable<User> GetAllUsers()
+        {
+            return users;
         }
     }
 }

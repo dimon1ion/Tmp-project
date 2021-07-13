@@ -11,32 +11,71 @@ namespace FirstProject_WinForm.Presenter
     public class PresenterUser
     {
         RepositoryUser repository;
+        IUserView view;
         public bool rightLogin { get; set; }
-        public PresenterUser(RepositoryUser _repository)
+        public PresenterUser(IUserView view, RepositoryUser repository)
         {
-            repository = _repository;
+            this.repository = repository;
+            view.UserPresenter = this;
+            this.view = view;
             rightLogin = false;
+            DefaultProp();
         }
-        public User CheckUser(string login, string pass = "")
+        private void DefaultProp()
+        {
+            if (repository.GetAllUsers().Count() > 0)
+            {
+                User tmpU = repository.GetUserByID(0);
+                view.NameUser = tmpU.NameUser;
+                view.Surname = tmpU.Surname;
+                view.Posts = tmpU.Posts;
+            }
+        }
+        public bool CheckUser(string login, string pass)
         {
             rightLogin = false;
-            for (int i = 0; i < repository.users.Count; i++)
+            if (repository.GetAllUsers().Where(x => x.Login == login).Count() > 0)
             {
-                if (repository.users[i].Login == login)
+                try
                 {
-                    if (repository.users[i].Password == pass)
+                    if (pass != null)
                     {
-                        return repository.users[i];
+                        User tmpU = repository.GetAllUsers().Where(x => x.Login == login && x.Password == pass).ToList().ElementAt(0);
+                        view.NameUser = tmpU.NameUser;
+                        view.Surname = tmpU.Surname;
+                        view.Posts = tmpU.Posts;
+                        return true;
                     }
-                    rightLogin = true;
-                    break;
+                    else
+                    {
+                        return true;
+                    }
                 }
+                catch (Exception) { }
+                rightLogin = true;
             }
-            return null;
+
+            //for (int i = 0; i < repository.users.Count; i++)
+            //{
+            //    if (repository.users[i].Login == login)
+            //    {
+            //        if (repository.users[i].Password == pass)
+            //        {
+            //            return repository.users[i];
+            //        }
+            //        rightLogin = true;
+            //        break;
+            //    }
+            //}
+            return false;
         }
         public void NewUser(User newUser)
         {
             repository.AddUser(newUser);
+        }
+        public void SaveUsers()
+        {
+            repository.SaveUsers(null);
         }
     }
 }

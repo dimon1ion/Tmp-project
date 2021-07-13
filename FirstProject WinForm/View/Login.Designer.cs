@@ -1,7 +1,7 @@
 ﻿
 namespace FirstProject_WinForm
 {
-    partial class Login
+    partial class AccountPosts
     {
         /// <summary>
         /// Required designer variable.
@@ -37,7 +37,8 @@ namespace FirstProject_WinForm
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(559, 19);
+            this.addButton.Font = new System.Drawing.Font("Old English Text MT", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.addButton.Location = new System.Drawing.Point(559, 30);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(128, 57);
             this.addButton.TabIndex = 0;
@@ -47,7 +48,8 @@ namespace FirstProject_WinForm
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 19);
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.textBox1.Location = new System.Drawing.Point(6, 30);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(547, 57);
@@ -57,14 +59,15 @@ namespace FirstProject_WinForm
             // 
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.addButton);
-            this.groupBox1.Location = new System.Drawing.Point(12, 363);
+            this.groupBox1.Font = new System.Drawing.Font("Old English Text MT", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.groupBox1.Location = new System.Drawing.Point(12, 355);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(729, 96);
+            this.groupBox1.Size = new System.Drawing.Size(729, 104);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Text = "Write post";
             // 
-            // Login
+            // AccountPosts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -74,7 +77,7 @@ namespace FirstProject_WinForm
             this.Controls.Add(this.groupBox1);
             this.MaximumSize = new System.Drawing.Size(769, 510);
             this.MinimumSize = new System.Drawing.Size(769, 510);
-            this.Name = "Login";
+            this.Name = "AccountPosts";
             this.Text = "Login";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
