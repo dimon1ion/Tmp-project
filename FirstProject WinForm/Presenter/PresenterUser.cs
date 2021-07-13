@@ -46,27 +46,11 @@ namespace FirstProject_WinForm.Presenter
                         view.Posts = tmpU.Posts;
                         return true;
                     }
-                    else
-                    {
-                        return true;
-                    }
+                    else { return true; }
                 }
                 catch (Exception) { }
                 rightLogin = true;
             }
-
-            //for (int i = 0; i < repository.users.Count; i++)
-            //{
-            //    if (repository.users[i].Login == login)
-            //    {
-            //        if (repository.users[i].Password == pass)
-            //        {
-            //            return repository.users[i];
-            //        }
-            //        rightLogin = true;
-            //        break;
-            //    }
-            //}
             return false;
         }
         public void NewUser(User newUser)
